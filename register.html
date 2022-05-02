@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Climate Change Web Application</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      /*color: #eee;*/
+      color:white;
+      }
+      body {
+      background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("https://cdn.hovia.com/app/uploads/breaking-light-green-forest-plain-820x532.jpg");
+      background-size: cover;
+      }
+      h1, h2 {
+      text-transform: uppercase;
+      font-weight: 400;
+      }
+      h2 {
+      margin: 0 0 0 8px;
+      }
+      .main-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.5); 
+      }
+      .left-part, form {
+      padding: 25px;
+      }
+      .left-part {
+      text-align: center;
+      }
+      .fa-tree {
+      font-size: 72px;
+      }
+      form {
+      background: rgba(0, 0, 0, 0.7); 
+      }
+      .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      }
+      .info {
+      display: flex;
+      flex-direction: column;
+      }
+      input,select {
+      padding: 5px;
+      margin-bottom: 30px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #eee;
+      }
+      input[type="time"]::-webkit-calendar-picker-indicator{
+      filter: invert(100%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
+      }
+      input[type="date"]::-webkit-calendar-picker-indicator{
+      filter: invert(100%) sepia(13%) saturate(3207%) hue-rotate(130deg) brightness(95%) contrast(80%);
+      }
+      input::placeholder {
+      color: #eee;
+      }
+      option:focus {
+      border: none;
+      }
+      option {
+      background: black; 
+      border: none;
+      }
+      .checkbox input {
+      margin: 0 10px 0 0;
+      vertical-align: middle;
+      }
+      #location{
+      padding: 5px;
+      margin-bottom: 30px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #eee;
+      }
+      .checkbox a {
+      color: #26a9e0;
+      }
+      .checkbox a:hover {
+      color: #85d6de;
+      }
+      .btn-item, button {
+      padding: 10px 5px;
+      margin-top: 20px;
+      border-radius: 5px; 
+      border: none;
+      background: #26a9e0; 
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 400;
+      color: #fff;
+      }
+      #datepicker:before {
+      content:'Date of observation:';
+      margin-right:.6em;
+      color:#eee;
+      }
+      #timepicker:before {
+      content:'Time of observation:';
+      margin-right:.6em;
+      color:#eee;
+      }
+      .btn-item {
+      display: inline-block;
+      margin: 20px 5px 0;
+      }
+      button {
+      width: 100%;
+      }
+      button:hover, .btn-item:hover {
+      background: #85d6de;
+      }
+      #earth_icon{
+        width: 100px;
+        height:75px;
+      }
+      .pointer {cursor: pointer;}
+      span{
+        margin-top:100px;
+      }
+      .login_div{
+        margin-top: 20px;
+      }
+      @media (min-width: 568px) {
+      html, body {
+      height: 100%;
+      }
+      .main-block {
+      flex-direction: row;
+      height: calc(100% - 50px);
+      }
+      .left-part, form {
+      flex: 1;
+      height: auto;
+      }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-block">
+      <div class="left-part">
+        <img id="earth_icon" src = "earth-americas-solid.svg"/>
+        <!-- <i class="fa-solid fa-user"></i> -->
+        <h1>CLIMATE CHANGE WEB APPLICATION</h1>
+        <p>The climate change web app was developed to provide users with an interactive insight about the sentiments revolving around climate change across the world. It also includes real-time tracking of AQI and a safety-risk assessment of the places the user wishes to visit. </p>
+      </div>
+      <form>
+        <div class="title">
+          <i class="fas fa-pencil-alt"></i> 
+          <h2>Create a new account</h2>
+        </div>
+        <div class="info">
+          <input class="fname" type="text" name="name" placeholder="Name">
+          <input class="user_email" type="email" name="email" placeholder="Email id">
+          <input class="username" type="text" name="username" placeholder="Username">
+          <input type="password" id="password" name="password" placeholder="Password">
+        </div>
+        <button class="pointer" type="submit" >Register</button>
+        <div class="login_div">
+          <span>Already a user? <a href="file:///C:/Users/HP/Documents/Placement%20Projects/Climate-Change-Web-App/login.html">Login here</a></span>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
