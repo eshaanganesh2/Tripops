@@ -1,6 +1,7 @@
 const express=require('express');
 const app=express();
 const path = require('path'); 
+const bcrypt=require('bcryptjs');
 db_path=path.join( __dirname,'/db/connection');
 //console.log(db_path);
 const port=process.env.PORT||3000;
@@ -44,8 +45,10 @@ app.post('/register',async(req,res)=>{
                     res.render('register.ejs',{message:'Username/email already exists!'});
                     //return res.send("Error!!!");
                 }
+                else{
+                    res.render('register.ejs',{message:'Error in connecting to database!'});
+                }
                 // Some other error
-                // console.log("error2");
                 // return res.status(500).send(err);
               }
             else{
@@ -53,7 +56,7 @@ app.post('/register',async(req,res)=>{
             }
         });
     } catch (error) {
-        res.status(400).send("Please enter the required fields correctly");
+        res.render('register.ejs',{message:'Error in connecting to database!'});
     }
 });
 
@@ -64,7 +67,10 @@ app.post('/login',async(req,res)=>{
         const password=req.body.password;
 
         const userdetails= await Register.findOne({username:username});
-        if(userdetails.password===password){
+
+        // Compare the hashed form of the password entered by the user and the hashed password stored in the database
+        const compare_hash=bcrypt.compare(password,userdetails.password);
+        if(compare_hash){
             res.status(201).render('index.ejs');
         }
         else{
