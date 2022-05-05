@@ -18,7 +18,7 @@
       color:white;
       }
       body {
-      background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("https://cdn.hovia.com/app/uploads/breaking-light-green-forest-plain-820x532.jpg");
+      background-image: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.4)), url("breaking-light-green-forest-plain-820x532.jpg");
       background-size: cover;
       }
       h1, h2 {
@@ -73,6 +73,9 @@
       }
       input::placeholder {
       color: #eee;
+      }
+      input:focus::placeholder {
+      color: transparent;
       }
       option:focus {
       border: none;
@@ -140,6 +143,9 @@
       .login_div{
         margin-top: 20px;
       }
+      .message{
+        color:rgb(199, 51, 51);
+      }
       @media (min-width: 568px) {
       html, body {
       height: 100%;
@@ -163,20 +169,25 @@
         <h1>CLIMATE CHANGE WEB APPLICATION</h1>
         <p>The climate change web app was developed to provide users with an interactive insight about the sentiments revolving around climate change across the world. It also includes real-time tracking of AQI and a safety-risk assessment of the places the user wishes to visit. </p>
       </div>
-      <form>
+      <form action="/register" method="POST">
         <div class="title">
           <i class="fas fa-pencil-alt"></i> 
           <h2>Create a new account</h2>
         </div>
-        <div class="info">
-          <input class="fname" type="text" name="name" placeholder="Name">
-          <input class="user_email" type="email" name="email" placeholder="Email id">
-          <input class="username" type="text" name="username" placeholder="Username">
-          <input type="password" id="password" name="password" placeholder="Password">
-        </div>
+          <div class="info">
+            <input class="name" type="text" name="name" required placeholder="Name">
+            <input class="user_email" type="email" name="email" required placeholder="Email id">
+            <input class="username" type="text" name="username" required placeholder="Username">
+            <input type="password" id="password" name="password" required placeholder="Password">
+          </div>
+          <div class="message">
+          <% if(typeof message  !== 'undefined'){ %>
+            <%= message %>
+          <% } %>
+          </div>
         <button class="pointer" type="submit" >Register</button>
         <div class="login_div">
-          <span>Already a user? <a href="file:///C:/Users/HP/Documents/Placement%20Projects/Climate-Change-Web-App/login.html">Login here</a></span>
+          <span>Already a user? <a href="/login">Login here</a></span>
         </div>
       </form>
     </div>
