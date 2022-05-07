@@ -23,14 +23,14 @@ app.set("views",static_files_path);
 
 app.get('/login',(req,res)=>{
     if(flag==1){
-       res.redirect('/index');
+       return res.redirect('/index');
     }
     res.render('login.ejs');
 });
 
 app.get('/register',(req,res)=>{
     if(flag==1){
-        res.redirect('/index');
+        return res.redirect('/index');
     }
     res.render('register.ejs');
 });
