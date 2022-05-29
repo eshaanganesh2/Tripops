@@ -12,8 +12,8 @@
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
 <style>
     body {
-        margin: 0;
-        padding: 0;
+    min-height: 100vh;
+    margin: 0 auto;
     }
 
     h2,
@@ -30,9 +30,6 @@
         margin: 10px;
     }
 
-    /**
-    * Create a position for the map
-    * on the page */
     #map {
         right: 75px;
         position: absolute;
@@ -43,10 +40,6 @@
         left: 100px; 
     }
 
-    /**
-    * Set rules for how the map overlays
-    * (information box and legend) will be displayed
-    * on the page. */
     .map-overlay {
         position: absolute;
         bottom: 0;
@@ -78,14 +71,24 @@
         width: 100px;
         right: 175px;
         top: 395px; */
-        right: 175px;
+        /* right: 175px;
         top: 0;
-        height: 150px;
+        height: 175px;
         margin: 10px;
         width: 100px;
-        top: 395px;
+        top: 380px;
         position: absolute;
-        left: 100px;
+        left: 100px; */
+            right: 75px;
+        /* top: 0; */
+        height: 155px;
+        margin: 10px;
+        width: 145px;
+        /* top: 105px; */
+        position: absolute;
+        /*left: 100px;*/
+        right:175px;
+        bottom: 30px;
     }
 
     .legend-key {
@@ -95,7 +98,6 @@
         height: 10px;
         margin-right: 5px;
     }
-
 </style>
 </head>
 <body>
@@ -122,11 +124,11 @@
     // In order to ednsure that rest of the code is executed only after map has loaded
     map.on('load', () => {
         const layers = [
-            '<=3.37',
-            '3.38-5.40',
-            '5.41-7.10',
-            '7.11-10.28',
-            '>=10.29',
+            'Very Low',
+            'Low',
+            'Medium',
+            'High',
+            'Very high',
             'undefined'
         ];
         const colors = [
@@ -139,6 +141,9 @@
         ];
         // creating legend
         const legend = document.getElementById('legend');
+        const legend_title=document.createElement('div');
+        legend_title.innerHTML=`<h3>Risk of disaster</h3>`
+        legend.appendChild(legend_title);
         layers.forEach((layer, i) => {
         const color = colors[i];
         const item = document.createElement('div');
@@ -150,6 +155,7 @@
         value.innerHTML = `${layer}`;
         item.appendChild(key);
         item.appendChild(value);
+        item.style.padding = "0px 0px 0px 15px";
         legend.appendChild(item);
         });
 
