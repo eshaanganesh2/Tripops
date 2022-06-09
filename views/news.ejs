@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Latest news</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0 auto;
+            background-color: #2e2e2e;
+        }
+        h2,
+        h3 {
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        h3 {
+            font-size: 16px;
+        }
+
+        p {
+            margin: 10px;
+        }
+
+        .topnav {
+        overflow: hidden;
+        background-color: #333;
+        transition: 0.5s;
+        margin-left: 20px;
+        display: flex;
+        justify-content: center;
+        }
+
+        .topnav button {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            background-color: #333;
+            border-color: #333;
+            cursor: pointer;
+        }
+
+        .topnav button:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .topnav button.active {
+            background-color: #05333c;
+            color: white;
+        }
+        .input-group{
+            width:28%;
+        }
+        .mapboxgl-ctrl-geocoder {
+            max-width: 30%;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .mapboxgl-ctrl-geocoder:hover {
+            transition: box-shadow 0.3s ease-in-out;
+            box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+        }
+        #search_box_wrapper{
+            display: flex;
+            justify-content: center;
+            margin:auto;
+            width: 100%;
+        }
+        #textfield{
+            display: flex;
+            justify-content: center;
+            margin:auto;
+            width: 60%;
+            margin-top:50px;
+        }
+        .input-group-append
+        {
+            flex-direction: row-reverse;
+        }
+        .btn-outline-secondary
+        {
+            color:#bfc1c5;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <div class="topnav">
+        <button type="button" id="button1" >Interactive map</button>
+        <a href="/news"><button type="button" id="button2" >Latest news</button></a>
+        <a href="emergency_contact.ejs"><button type="button" id="button3" >Emergency contact</button></a>
+        <a href="my_journal.ejs"><button type="button" id="button4" >Travel journal</button></a>
+
+    </div>
+<form action="/logout" method="POST">
+    <button type="submit">Log out</button>
+</form>
+<!-- <div class="input-group mb-3 mx-auto justify-content-center"> -->
+<!-- <div class="input-group mb-3 justify-content-center"> -->
+<div id="search_box_wrapper">
+    <div id="textfield">
+        <div id="searchbox" class="input-group-append">
+        </div>
+        <button class="btn btn-outline-secondary font-weight-bold" type="button">Search</button>
+    </div>
+            
+    </div>
+    <pre id="result"></pre>
+  <!-- </div> -->
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXNoYWFuZ2FuZXNoMiIsImEiOiJjbDNoNm0za2cxOHJ4M2RwODJrY3ptYW9oIn0.XUCz2-mH68C76R9rmx5TIA';
+    const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        types: 'country,region,place,postcode,locality,neighborhood'
+    });
+    
+    geocoder.addTo('#searchbox');
+    // Get the geocoder results container.
+    const results = document.getElementById('result');
+    
+    // Add geocoder result to container.
+    geocoder.on('result', (e) => {
+        results.innerText = JSON.stringify(e.result, null, 2);
+    });
+    
+    // Clear results container when search is cleared.
+    geocoder.on('clear', () => {
+        results.innerText = '';
+    });
+    document.querySelector(".mapboxgl-ctrl-geocoder--input").placeholder = "Type location here..";
+</script>
+</body>
+
+</html>

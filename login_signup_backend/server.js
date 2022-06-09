@@ -98,6 +98,27 @@ app.get('/index',(req,res)=>{
     res.redirect('/login');
 });
 
+app.get('/news',(req,res)=>{
+    if(flag==1){
+        return res.render('news.ejs');
+    }
+    res.redirect('/login');
+});
+
+app.get('/emergency_contact',(req,res)=>{
+    if(flag==1){
+        return res.render('emergency_contact.ejs');
+    }
+    res.redirect('/login');
+});
+
+app.get('/my_journal',(req,res)=>{
+    if(flag==1){
+        return res.render('my_journal.ejs');
+    }
+    res.redirect('/login');
+});
+
 //User clicks on logout button
 app.post('/logout',(req,res)=>{
     flag=0;
