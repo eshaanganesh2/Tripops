@@ -98,7 +98,7 @@
             font-size: xx-large;
         }
         .content{
-            margin: auto;
+            margin: 20px;
             height: 80%;
             overflow-y: hidden;
         }
@@ -167,6 +167,7 @@
         }
         .container_posts{
             display: none;
+            margin:20px;
         }
     </style>
 </head>
@@ -202,7 +203,7 @@
         <!-- <a class="parent_post_link"> -->
             <div class="post">
                 <div class="left">
-                    <a class="post_link1"> <img src= ""  alt="image not found" class="post_image"></a>
+                    <a class="post_link1"> <img src= ""  alt="Unable to load image" class="post_image"></a>
                 </div> 
                 <a class="post_link2">
                 <div class="right">
@@ -245,37 +246,55 @@
     var posttitle=document.querySelector(".post_title");
     var posttext=document.querySelector(".post_text");
     var postsource=document.querySelector(".post_source");
+    var container_posts=document.querySelector(".container_posts");;
     document.querySelector(".mapboxgl-ctrl-geocoder--input").placeholder = "Type location here..";
     document.getElementById("search-button").addEventListener('click',()=>{
         if(document.querySelector(".mapboxgl-ctrl-geocoder--input").value!=""){
+            container_posts.innerHTML="";
             //document.getElementById("search-result").innerText="Showing results for \"\""+document.querySelector(".mapboxgl-ctrl-geocoder--input").value;
             document.getElementById("search-result").innerText=`Showing results for "${document.querySelector(".mapboxgl-ctrl-geocoder--input").value}"`;
             document.getElementById("search-result").style.display="block";
-            var url = `https://newsapi.org/v2/everything?` +`q=${document.querySelector(".mapboxgl-ctrl-geocoder--input").value}&` +'from=2022-06-01&' +'sortBy=popularity&' +'apiKey=ad0b5365ba6d42c880344e626ee7b425';
+            
+            str=document.querySelector(".mapboxgl-ctrl-geocoder--input").value;
+            // Changing plain space character to %20 for usability in URL query parameter
+            str = str.replace(/\s/g, '%20');
+            var url = `https://newsapi.org/v2/everything?` +`q=${str}&`+'sortBy=popularity&'+'searchIn=title,description&'+'apiKey=ad0b5365ba6d42c880344e626ee7b425';
+            //console.log(url);
             var req = new Request(url);
             var jsonresponse;
-            fetch(req).then(async function(response) {
+            fetch(req).then(async function call(response) {
                 jsonresponse= await response.json();
                 //console.log(jsonresponse);
                 //console.log(jsonresponse.articles);
-                document.querySelector(".container_posts").style.display="block";
-
-                //parentpostlink.setAttribute('href',`${jsonresponse.articles[0].url}`);
-                postimage.setAttribute("src",`${jsonresponse.articles[0].urlToImage}`);
-                postlink1.setAttribute('href',`${jsonresponse.articles[0].url}`);
-                postlink1.appendChild(postimage);
-                postsource.innerHTML=`${jsonresponse.articles[0].source.name}`;
-                postlink2.setAttribute('href',`${jsonresponse.articles[0].url}`);
-                posttitle.innerHTML=`${jsonresponse.articles[0].title}`;
-                posttext.innerHTML=`${jsonresponse.articles[0].description}`;
-                //parentpostlink.appendChild(post);
+                
+            }).then(async function x(){
+                container_posts.style.display="block";
+                for(var i=0;i<jsonresponse.articles.length;i++){
+                    postimage.setAttribute("src",`${jsonresponse.articles[i].urlToImage}`);
+                    postlink1.setAttribute('href',`${jsonresponse.articles[i].url}`);
+                    postlink1.appendChild(postimage);
+                    postsource.innerHTML=`${jsonresponse.articles[i].source.name}`;
+                    postlink2.setAttribute('href',`${jsonresponse.articles[i].url}`);
+                    posttitle.innerHTML=`${jsonresponse.articles[i].title}`;
+                    posttext.innerHTML=`${jsonresponse.articles[i].description}`;
+                    //parentpostlink.appendChild(post);
+                    if(i==0){
+                        post.setAttribute('id',"post0");
+                        container_posts.appendChild(post);
+                    }
+                    if(i<jsonresponse.articles.length-1){
+                        var divClone = post.cloneNode(true);
+                        j=i+1;
+                        divClone.setAttribute('id',"post"+j);
+                        container_posts.appendChild(divClone);
+                    }
+                }
+                
             });
-            document.querySelector(".post").addEventListener('mouseover',()=>{
-                posttitle.style.color="#8ab4f8";
-            });
-            document.querySelector(".post").addEventListener('mouseout',()=>{
-                posttitle.style.color="#efecec";
-            });
+            async function helper(){
+                await call();
+                await x();
+            }
         }
     })
 </script>
