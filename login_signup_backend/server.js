@@ -105,9 +105,9 @@ app.get('/news',(req,res)=>{
     res.redirect('/login');
 });
 
-app.get('/emergency_contact',(req,res)=>{
+app.get('/weather_updates',(req,res)=>{
     if(flag==1){
-        return res.render('emergency_contact.ejs');
+        return res.render('weather_updates.ejs');
     }
     res.redirect('/login');
 });

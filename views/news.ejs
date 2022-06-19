@@ -167,7 +167,12 @@
         }
         .container_posts{
             display: none;
-            margin:20px;
+            margin: 20px;
+            /* width: 100%; */
+            background-color: #504949;
+            border-radius: 30px;
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
     </style>
 </head>
@@ -176,10 +181,11 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     <div class="topnav">
-        <button type="button" id="button1" >Interactive map</button>
+        <!-- <button type="button" id="button1" >Interactive map</button> -->
+        <a href="/index"><button type="button" id="button1" >Interactive map</button></a>
         <a href="/news"><button type="button" id="button2" >Latest news</button></a>
-        <a href="emergency_contact.ejs"><button type="button" id="button3" >Emergency contact</button></a>
-        <a href="my_journal.ejs"><button type="button" id="button4" >Travel journal</button></a>
+        <a href="/weather_updates"><button type="button" id="button3" >Weather updates</button></a>
+        <a href="/my_journal"><button type="button" id="button4" >Travel journal</button></a>
 
     </div>
 <form action="/logout" method="POST">
@@ -269,6 +275,12 @@
                 
             }).then(async function x(){
                 container_posts.style.display="block";
+                container_posts.style.margin="20px";
+                /* width: 100%; */
+                container_posts.style.backgroundColor="#504949";
+                container_posts.style.borderRadius="30px";
+                container_posts.style.paddingTop="20px";
+                container_posts.style.paddingBottom="20px";
                 for(var i=0;i<jsonresponse.articles.length;i++){
                     postimage.setAttribute("src",`${jsonresponse.articles[i].urlToImage}`);
                     postlink1.setAttribute('href',`${jsonresponse.articles[i].url}`);
