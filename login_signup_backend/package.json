@@ -16,7 +16,9 @@
     "ejs": "^3.1.7",
     "express": "^4.18.1",
     "mongoose": "^6.3.1",
-    "node-fetch": "^3.2.4",
+    "node-fetch": "^2.6.7",
+    "nodemailer": "^6.7.5",
+    "nodemailer-juice": "^1.0.1",
     "nodemon": "^2.0.16"
   }
 }
