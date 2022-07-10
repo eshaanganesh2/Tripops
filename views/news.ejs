@@ -225,7 +225,7 @@
     </div>
   <!-- </div> -->
   <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZXNoYWFuZ2FuZXNoMiIsImEiOiJjbDNoNm0za2cxOHJ4M2RwODJrY3ptYW9oIn0.XUCz2-mH68C76R9rmx5TIA';
+    mapboxgl.accessToken = '<%=mapbox_access_token%>';
     const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         types: 'country,region,place,postcode,locality,neighborhood'
@@ -264,7 +264,7 @@
             str=document.querySelector(".mapboxgl-ctrl-geocoder--input").value;
             // Changing plain space character to %20 for usability in URL query parameter
             str = str.replace(/\s/g, '%20');
-            var url = `https://newsapi.org/v2/everything?` +`q=${str}&`+'sortBy=popularity&'+'searchIn=title,description&'+'apiKey=ad0b5365ba6d42c880344e626ee7b425';
+            var url = `https://newsapi.org/v2/everything?` +`q=${str}&`+'sortBy=popularity&'+'searchIn=title,description&'+`apiKey=${'<%=newsapi_access_token%>'}`;
             //console.log(url);
             var req = new Request(url);
             var jsonresponse;

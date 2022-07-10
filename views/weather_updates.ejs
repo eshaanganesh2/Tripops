@@ -86,6 +86,11 @@
         cursor: pointer;
     }
 
+    .message{
+        color:rgb(16 255 0);
+        margin-bottom: 10px;
+      }
+
     .topnav button:hover {
         background-color: #ddd;
         color: black;
@@ -162,26 +167,31 @@ body,
                     <div class="card-body p-5 text-white">
       
                       <div class="my-md-5">
-      
+                        <form action="/weather_updates" method="POST">
                         <div class="text-center pt-1">
                           <h1 class="fw-bold my-5 text-uppercase">Subscribe for Weather updates</h1>
                         </div>
+                        <div class="message">
+                          <% if(typeof message  !== 'undefined'){ %>
+                            <%= message %>
+                          <% } %>
+                          </div>
                         <div id="searchbox" class="mb-4">
                         </div>
                         <div class="form-outline form-white mb-4">
-                          <input type="email" id="typeEmail" class="form-control form-control-lg" />
+                          <input type="email" name="email" id="typeEmail" class="form-control form-control-lg" />
                           <label class="form-label" for="typeEmail">Email</label>
                         </div>
       
                         <div class="form-outline form-white mb-4">
-                          <input type="date" id="typePassword" class="form-control form-control-lg" />
-                          <label class="form-label" for="typePassword">Travel date</label>
+                          <input type="date" name="date" id="typeDate" class="form-control form-control-lg" />
+                          <label class="form-label" for="typeDate">Travel date</label>
                         </div>
       
                         <div class="text-center py-5">
                           <button class="btn btn-light btn-lg btn-rounded px-5" type="submit">Subscribe</button>
                         </div>
-      
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -199,7 +209,7 @@ body,
   src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js"
 ></script>
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZXNoYWFuZ2FuZXNoMiIsImEiOiJjbDNoNm0za2cxOHJ4M2RwODJrY3ptYW9oIn0.XUCz2-mH68C76R9rmx5TIA';
+    mapboxgl.accessToken = '<%=mapbox_access_token%>';
     const geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         types: 'country,region,place,postcode,locality,neighborhood'
@@ -217,6 +227,7 @@ body,
     document.querySelector(".mapboxgl-ctrl-geocoder").style.boxShadow="none";
     document.querySelector(".mapboxgl-ctrl-geocoder--input").style.height="44.92px";
     document.querySelector(".mapboxgl-ctrl-geocoder--input").style.color="#fbfbfb";
+    document.querySelector(".mapboxgl-ctrl-geocoder--input").setAttribute("name","location");
     document.querySelector(".mapboxgl-ctrl-geocoder--icon").style.fill="#fbfbfb";
     document.querySelector(".mapboxgl-ctrl-geocoder--button").style.background="transparent";
     document.querySelector(".mapboxgl-ctrl-geocoder--icon-close").style.fill="#fbfbfb";

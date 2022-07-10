@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <title>Weather page</title>
-<script src="https://unpkg.com/feather-icons"></script>
 </head>
 <style type="text/css">
     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
@@ -114,7 +113,7 @@ body {
 	/*position: absolute;*/
 	bottom: 25px;
 	left: 25px;
-	margin-left: 25px;
+	margin-left: 50px;
 	margin-top: 50px;
 }
 
@@ -266,7 +265,6 @@ body {
 	<table align="center">
 		<tr>
 		  <td align="">
-			<!-- AMAZING CONTENT! -->
 		  
 
     <div class="container">
@@ -288,29 +286,29 @@ body {
                 <div class="days-to-go"> <span class="title">DAYS LEFT TO TRAVEL</span><span class="value"><%=diff_in_days%></span>
                     <div class="clear"></div>
                 </div>
-                <div class="feels-like"> <span class="title">FEELS LIKE</span><span id="FeelsLike" class="value"><%=day%></span>
+                <div class="feels-like"> <span class="title">FEELS LIKE</span><span id="FeelsLike" class="value"><%=feels_like%></span>
                     <div class="clear"></div>
                 </div>
-                <div class="visibility"> <span class="title">VISIBILITY</span><span id="visibility" class="value"></span>
+                <div class="visibility"> <span class="title">VISIBILITY</span><span id="visibility" class="value"><%=visibility%></span>
                     <div class="clear"></div>
                 </div>
-                <div class="precipitation"> <span class="title">PRECIPITATION</span><span id="precipitation" class="value"></span>
+                <div class="precipitation"> <span class="title">PRECIPITATION</span><span id="precipitation" class="value"><%=precipitation%></span>
                     <div class="clear"></div>
                 </div>
-                <div class="humidity"> <span class="title">HUMIDITY</span><span id="humidity" class="value"></span></span>
+                <div class="humidity"> <span class="title">HUMIDITY</span><span id="humidity" class="value"><%=humidity%></span></span>
                     <div class="clear"></div>
                 </div>
-                <div class="wind"> <span class="title">WIND</span><span id="wind" class="value"></span>
+                <div class="wind"> <span class="title">WIND</span><span id="wind" class="value"><%=wind%></span>
                     <div class="clear"></div>
                 </div>
             </div>
         </div>
         <div class="week-container">
             <ul class="week-list">
-            <li class="active"><i id="icon2" class="day-icon" data-feather="sun"></i><span id="day2" class="day-name"></span><span id="temp2" class="day-temp"></span></li>
-            <li><i id="icon3" class="day-icon" data-feather="cloud"></i><span id="day3" class="day-name"></span><span id="temp3" class="day-temp"></span></li>
-            <li><i id="icon4" class="day-icon" data-feather="cloud-snow"></i><span id="day4" class="day-name"></span><span id="temp4" class="day-temp"></span></li>
-            <li><i id="icon5" class="day-icon" data-feather="cloud-rain"></i><span id="day5" class="day-name"></span><span id="temp5" class="day-temp"></span></li>
+            <li class="active"><img src="<%=icon_curr2%>" id="icon2" class="day-icon" /><span id="day2" class="day-name"><%=day2%></span><span id="temp2" class="day-temp"><%=temp2%></span></li>
+            <li><img src="<%=icon_curr3%>" id="icon3" class="day-icon"/><span id="day3" class="day-name"><%=day3%></span><span id="temp3" class="day-temp"><%=temp3%></span></li>
+            <li><img src="<%=icon_curr4%>" id="icon4" class="day-icon"/><span id="day4" class="day-name"><%=day4%></span><span id="temp4" class="day-temp"><%=temp4%></span></li>
+            <li><img src="<%=icon_curr5%>" id="icon5" class="day-icon"/><span id="day5" class="day-name"><%=day5%></span><span id="temp5" class="day-temp"><%=temp5%></span></li>
             <div class="clear"></div>
             </ul>
         </div>
@@ -322,210 +320,5 @@ body {
 	</td>
 	</tr>
 	</table>
-    <script type="text/javascript">
-        feather.replace();
-
-        // Obtaining the day of the week
-        const d = new Date();
-        var day_digit = d.getDay();
-        var days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-        var day=days[day_digit];
-
-        //Obtaining the date
-        var date=d.getDate();
-
-        // Obtaining the month 
-        const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
-        var month_digit = d.getMonth();
-        var month=months[month_digit];
-
-        // Obtaining the year 
-        var year=d.getFullYear();
-
-        // Setting the day
-        document.querySelector('.date-dayname').innerText=day;
-
-        //Setting the date
-        var full_date=date+" "+month+" "+year;
-        document.querySelector('.date-day').innerText=full_date;
-
-        //Setting the location
-        var loc='<%=location%>';
-        //console.log(loc);
-        document.querySelector('.location').innerText=loc;
-
-		// Setting the number of days left for travel
-		var date_travel='<%=date%>';
-		//console.log(date_travel);
-		var date1=new Date(date_travel); // Travel date
-		//console.log(date1);
-		var date2_date=date;
-		if(date2_date<10){
-			date2_date="0"+date2_date;
-		}
-		var date2_month=month_digit+1;
-		if(date2_month<10){
-			date2_month="0"+date2_month;
-		}
-		var date2_year=year;
-		var date2=date2_year+"-"+date2_month+"-"+date2_date;
-		//console.log(date2);
-		date2=new Date(date2); //Today's date
-		//console.log(date2);
-
-		var Difference_In_Time = date1.getTime() - date2.getTime();
-		var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
-		if(Difference_In_Days<0){
-			Difference_In_Days=0;
-		}
-		console.log(Difference_In_Days);
-		document.querySelector('.days-to-go').querySelector('.value').textContent=Difference_In_Days;
-
-		var url = `https://api.weatherapi.com/v1/forecast.json?key=89585a5b263845498b7102535222706&q=${loc}&days=5&aqi=no`;
-            var req = new Request(url);
-            var jsonresponse;
-            fetch(req).then(async function call(response) {
-                jsonresponse= await response.json();
-            }).then(async function x(){
-				// Setting the current temperature
-				console.log(jsonresponse.current.temp_c);
-				console.log(jsonresponse);
-				document.querySelector('.weather-temp').innerText=jsonresponse.current.temp_c+"°C";
-
-				//Mapping weather codes to weather icons
-				var sun=[1000];
-				var cloud_lightning=[1087,1273,1276];
-				var cloud_rain=[1063,1180,1183,1186,1189,1192,1195,1198,1201,1240,1243,1246];
-				var cloud_drizzle=[1150,1153,1168,1171,1072];
-				var cloud_snow=[1066,1069,1114,1117,1204,1207,1210,1213,1216,1219,1222,1225,1237,1249,1252,1255,1258,1261,1264,1279,1282];
-				var cloud=[1003,1006,1009,1030,1135,1147];
-
-				// Function for getting weather icon
-				function check(code){
-					if(sun.includes(code)){
-						return "sun";
-					}
-					else
-					if(cloud_lightning.includes(code)){
-						return "cloud-lightning";
-					}
-					else
-					if(cloud_rain.includes(code)){
-						return "cloud-rain";
-					}
-					else
-					if(cloud_drizzle.includes(code)){
-						return "cloud-drizzle";
-					}
-					else
-					if(cloud_snow.includes(code)){
-						return "cloud-snow";
-					}
-					else
-					if(cloud.includes(code)){
-						return "cloud";
-					}
-					else{
-						return "sun";
-					}
-				}
-
-				var code1=jsonresponse.current.condition.code;
-				var icon_curr=check(code1);
-				console.log(icon_curr);
-				// Setting the current weather icon
-				document.getElementById("icon1").setAttribute("data-feather",icon_curr);
-				feather.replace();
-				// Setting the current weather description
-				document.querySelector(".weather-desc").innerText=jsonresponse.current.condition.text;
-				//Setting the feels like temperature
-				document.getElementById("FeelsLike").innerText=Math.trunc(jsonresponse.current.feelslike_c)+"°C";
-				//Setting the visibility
-				document.getElementById("visibility").innerText=jsonresponse.current.vis_km+" km";
-				//Setting the precipitation
-				document.getElementById("precipitation").innerText=jsonresponse.current.precip_mm+" mm";
-				//Setting the humidity
-				document.getElementById("humidity").innerText=jsonresponse.current.humidity+" %";
-				//Setting the wind
-				document.getElementById("wind").innerText=jsonresponse.current.wind_kph+" km/h";
-
-				//Setting the day names for the upcoming 4 days
-				var days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-				if(day_digit+1==days.length){
-					day_digit=-1;
-				}
-				var day=days[++day_digit];
-				document.getElementById("day2").innerText=days[day_digit];
-
-				if(day_digit+1==days.length){
-					day_digit=-1;
-				}
-				var day=days[++day_digit];
-				document.getElementById("day3").innerText=days[day_digit];
-
-				if(day_digit+1==days.length){
-					day_digit=-1;
-				}
-				var day=days[++day_digit];
-				document.getElementById("day4").innerText=days[day_digit];
-
-				if(day_digit+1==days.length){
-					day_digit=-1;
-				}
-				var day=days[++day_digit];
-				document.getElementById("day5").innerText=days[day_digit];
-
-				//Mapping weather codes to weather icons
-				var sun=[800];
-				var cloud_lightning=[200,201,202,230,231,232,233];
-				var cloud_rain=[500,501,502,511,520,521,522,900];
-				var cloud_drizzle=[300,301,302];
-				var cloud_snow=[600,601,602,610,611,612,621,622,623];
-				var cloud=[700,711,721,731,741,751,801,802,803,804];
-
-				var place=loc.substring(0, loc.indexOf(' '));
-				if(place==''){
-					place=loc;
-				}
-				
-
-				// Making API call for upcoming days weather details
-				var url2 = `https://api.weatherbit.io/v2.0/forecast/daily?city=${place}&key=bfbbbe3f544c446caf34860b09098b13&days=5`;
-				var req2 = new Request(url2);
-				var jsonresponse2;
-				fetch(req2).then(async function call(response) {
-					jsonresponse2= await response.json();
-					}).then(async function y(){
-						//Setting the upcoming days average temperature
-						document.getElementById("temp2").innerText=Math.trunc(jsonresponse2.data[1].temp)+"°C";
-						document.getElementById("temp3").innerText=Math.trunc(jsonresponse2.data[2].temp)+"°C";
-						document.getElementById("temp4").innerText=Math.trunc(jsonresponse2.data[3].temp)+"°C";
-						document.getElementById("temp5").innerText=Math.trunc(jsonresponse2.data[4].temp)+"°C";
-
-						console.log(jsonresponse2);
-
-						//Setting the weather icons for the upcoming days
-						var code2=jsonresponse2.data[1].weather.code;
-						var icon_curr2=check(code2);
-						var code3=jsonresponse2.data[2].weather.code;
-						var icon_curr3=check(code3);
-						var code4=jsonresponse2.data[3].weather.code;
-						var icon_curr4=check(code4);
-						var code5=jsonresponse2.data[4].weather.code;
-						var icon_curr5=check(code5);
-						// console.log(icon_curr);
-						document.getElementById("icon2").setAttribute("data-feather",icon_curr2);
-						feather.replace();
-						document.getElementById("icon3").setAttribute("data-feather",icon_curr3);
-						feather.replace();
-						document.getElementById("icon4").setAttribute("data-feather",icon_curr4);
-						feather.replace();
-						document.getElementById("icon5").setAttribute("data-feather",icon_curr5);
-						feather.replace();
-					});
-			});
-		
-    </script>
 </body>
 </html>
