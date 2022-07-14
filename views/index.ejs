@@ -100,12 +100,19 @@
         margin-right: 5px;
     }
     .topnav {
-        overflow: hidden;
+        /* overflow: hidden;
         background-color: #333;
         transition: 0.5s;
         margin-left: 20px;
         display: flex;
-        justify-content: center;
+        justify-content: center; */
+        overflow: hidden;
+        background-color: #333;
+        transition: 0.5s;
+        /* float: left; */
+        /* margin-left: 20px; */
+        /* justify-content: center; */
+        display: inline-block;
     }
 
     .topnav button {
@@ -120,7 +127,29 @@
         cursor: pointer;
     }
 
+    .submit button {
+        float: right;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        background-color: #333;
+        border-color: #333;
+        cursor: pointer;
+        /* margin-left: auto;
+        order: 2; */
+        margin: 10px;
+        margin-top: 0px;
+        border-radius: 20px;
+    }
+
     .topnav button:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .submit button:hover {
         background-color: #ddd;
         color: black;
     }
@@ -128,6 +157,18 @@
     .topnav button.active {
         background-color: #05333c;
         color: white;
+        float: right;
+    }
+
+    .submit button.active {
+        background-color: #05333c;
+        color: white;
+    }
+    .submit{
+        float: right;
+    }
+    .dummy{
+        text-align: center;
     }
     @media screen and (max-height: 330px) {
         #legend {
@@ -142,15 +183,22 @@
 </style>
 </head>
 <body>
-    <div class="topnav">
-        <a href="/index"><button type="button" id="button1" >Interactive map</button></a>
-        <a href="/news"><button type="button" id="button2" >Latest news</button></a>
-        <a href="/weather_updates"><button type="button" id="button3" >Weather updates</button></a>
-        <a href="/my_journal"><button type="button" id="button4" >Travel journal</button></a>
+    <div class="dummy">
+        <div class="topnav">
+            <a href="/index"><button type="button" id="button1" >Interactive map</button></a>
+            <a href="/news"><button type="button" id="button2" >Latest news</button></a>
+            <a href="/weather_updates"><button type="button" id="button3" >Weather updates</button></a>
+            <a href="/my_journal"><button type="button" id="button4" >Travel journal</button></a>
+            
+        </div>
+        <form action="/logout" method="POST" class="submit">
+                <button type="submit">Logout</button>
+        </form>
+        
     </div>
-<form action="/logout" method="POST">
-    <button type="submit">Log out</button>
-</form>
+    
+    
+
 
 <div id='map'></div>
 <div class='map-overlay' id='features'><div id='pd'><p>Hover over a country!</p></div></div>

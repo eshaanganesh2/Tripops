@@ -26,15 +26,6 @@
             margin: 10px;
         }
 
-        .topnav {
-        overflow: hidden;
-        background-color: #333;
-        transition: 0.5s;
-        margin-left: 20px;
-        display: flex;
-        justify-content: center;
-        }
-
         .topnav button {
             float: left;
             color: #f2f2f2;
@@ -51,6 +42,48 @@
             background-color: #ddd;
             color: black;
         }
+
+
+        .submit button.active {
+            background-color: #05333c;
+            color: white;
+        }
+        .submit{
+            float: right;
+        }
+        .dummy{
+            text-align: center;
+        }
+        .submit button:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .submit button {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            background-color: #333;
+            border-color: #333;
+            cursor: pointer;
+            /* margin-left: auto;
+            order: 2; */
+            margin: 10px;
+            margin-top: 0px;
+            border-radius: 20px;
+        }
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+            transition: 0.5s;
+            /* float: left; */
+            /* margin-left: 20px; */
+            /* justify-content: center; */
+            display: inline-block;
+        }
+
 
         .topnav button.active {
             background-color: #05333c;
@@ -180,17 +213,19 @@
 <body>
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
-    <div class="topnav">
-        <!-- <button type="button" id="button1" >Interactive map</button> -->
-        <a href="/index"><button type="button" id="button1" >Interactive map</button></a>
-        <a href="/news"><button type="button" id="button2" >Latest news</button></a>
-        <a href="/weather_updates"><button type="button" id="button3" >Weather updates</button></a>
-        <a href="/my_journal"><button type="button" id="button4" >Travel journal</button></a>
+    <div class="dummy">
+        <div class="topnav">
+            <!-- <button type="button" id="button1" >Interactive map</button> -->
+            <a href="/index"><button type="button" id="button1" >Interactive map</button></a>
+            <a href="/news"><button type="button" id="button2" >Latest news</button></a>
+            <a href="/weather_updates"><button type="button" id="button3" >Weather updates</button></a>
+            <a href="/my_journal"><button type="button" id="button4" >Travel journal</button></a>
 
+        </div>
+        <form action="/logout" method="POST" class="submit">
+            <button type="submit">Logout</button>
+        </form>
     </div>
-<form action="/logout" method="POST">
-    <button type="submit">Log out</button>
-</form>
 <!-- <div class="input-group mb-3 mx-auto justify-content-center"> -->
 <!-- <div class="input-group mb-3 justify-content-center"> -->
 <div id="search_box_wrapper">
@@ -262,9 +297,12 @@
             document.getElementById("search-result").style.display="block";
             
             str=document.querySelector(".mapboxgl-ctrl-geocoder--input").value;
-            // Changing plain space character to %20 for usability in URL query parameter
-            str = str.replace(/\s/g, '%20');
-            var url = `https://newsapi.org/v2/everything?` +`q=${str}&`+'sortBy=popularity&'+'searchIn=title,description&'+`apiKey=${'<%=newsapi_access_token%>'}`;
+            // Modifying query parameter to only include city name...seperator is comma, in order to discard the state and country names (if any) and also to account for city names having spaces (for eg. New Delhi, New York, etc.)
+            var place=str.substring(0, str.indexOf(','));
+            if(place==''){
+                place=str;
+            }
+            var url = `https://newsapi.org/v2/everything?` +`q=${place}&`+'sortBy=popularity&'+'searchIn=title,description&'+`apiKey=${'<%=newsapi_access_token%>'}`;
             //console.log(url);
             var req = new Request(url);
             var jsonresponse;
