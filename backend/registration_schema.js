@@ -18,6 +18,14 @@ const userSchema= new mongoose.Schema({
     password: {
         type: String,
         required:true,
+    },
+    location:{
+        type: String,
+        required:false
+    },
+    travel_date:{
+        type:String,
+        required:false
     }
 })
 
