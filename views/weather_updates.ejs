@@ -219,7 +219,7 @@ body,
                         </div> -->
       
                         <div class="form-outline form-white mb-4">
-                          <input type="date" name="date" id="typeDate" class="form-control form-control-lg" />
+                          <input type="date" name="date" id="typeDate" class="form-control form-control-lg" required/>
                           <label class="form-label" for="typeDate">Travel date</label>
                         </div>
       
@@ -252,6 +252,7 @@ body,
     
     geocoder.addTo('#searchbox');
     document.querySelector(".mapboxgl-ctrl-geocoder--input").placeholder="Location";
+    document.querySelector(".mapboxgl-ctrl-geocoder--input").setAttribute("required", ""); //Turns required on
     document.querySelector(".mapboxgl-ctrl-geocoder").style.width="100%";
     document.querySelector(".mapboxgl-ctrl-geocoder").style.maxWidth="none";
     document.querySelector(".mapboxgl-ctrl-geocoder").style.background="transparent";
