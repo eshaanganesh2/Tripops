@@ -4,17 +4,11 @@ const nodemailer = require("nodemailer");
 var inLineCss = require('nodemailer-juice');
 var ejs = require("ejs");
 require('dotenv').config({path:path.join(__dirname,"..",".env")});
-// db_path=path.join( __dirname,'/db/connection');
-// var db;
-// schema_path=path.join( __dirname,'/registration_schema');
-// var Register;
 var mongodb = require('mongodb');
+const Register = require('./registration_schema');
 
 var MongoClient = mongodb.MongoClient;
 var url="mongodb://localhost:27017";
-
-
-
 
 var file_res;
     async function y(email_array,location_array,date_travel_array){
@@ -299,44 +293,24 @@ var file_res;
 //})
 
 }
-
-//    async function x(){
-       
-// }
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function z(email_array,location_array,date_travel_array){
     return new Promise(resolve => {
-    // console.log(db_path);
-    // db=await require(db_path);
-    // await sleep(10000);
-    // console.log(db);
-    // console.log(schema_path);
-    // Register=await require(schema_path);
-    // console.log(Register);
-    // console.log("Hello1");
-    //var connection = await MongoClient.connect(url);
-    //console.log(connection);
-    //var db=MongoClient.db("UserDetails");
     MongoClient.connect(url,async function(err,client){
         //if(err)
         var db=client.db("UserDetails");
-        await db.collection('registers').find().forEach(function(myDoc) { 
+        //await db.collection('registers').find().forEach(function(myDoc) { 
+        // Only include details of users who have subscribed for weather updates
+        await db.collection('registers').find({"location":{$exists:true}}).forEach(function(myDoc){ 
             console.log(myDoc.email); 
             email_array.push(myDoc.email);
             location_array.push(myDoc.location);
             date_travel_array.push(myDoc.travel_date);
-        })
-        // const userdetails= Register.findOne({username:"xcvb"});
-        // console.log(userdetails);
     })
-    //connection.then(function(db) {
-        // db.Register.find().forEach( function(myDoc) { 
-        //     resolve(myDoc.name); 
-        // })
-    //});
+    })
     resolve();
 })
 }
