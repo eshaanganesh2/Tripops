@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Raleway&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Travel media</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0 auto;
+            background-color: #2e2e2e;
+            color:white;
+        }
+        h2,
+        h3 {
+            margin: 10px;
+            font-size: 18px;
+        }
+
+        h3 {
+            font-size: 19px;
+        }
+
+        p {
+            margin: 10px;
+        }
+
+        .topnav button {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            background-color: #333;
+            border-color: #333;
+            cursor: pointer;
+        }
+
+        .topnav button:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+
+        .submit button.active {
+            background-color: #05333c;
+            color: white;
+        }
+        .submit{
+            float: right;
+        }
+        .dummy{
+            text-align: center;
+        }
+        .submit button:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .submit button {
+            float: right;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            background-color: #333;
+            border-color: #333;
+            cursor: pointer;
+            margin: 10px;
+            margin-top: 0px;
+            border-radius: 20px;
+        }
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+            transition: 0.5s;
+            display: inline-block;
+        }
+
+
+        .topnav button.active {
+            background-color: #05333c;
+            color: white;
+        }
+
+        .container{
+            margin:10px;
+            width: 35%;
+            float: left;
+        }
+
+        .container2{
+            margin: 10px;
+            padding-left: 15px;
+            float: right;
+            width: 35%;
+        }
+
+        hr{
+            border-top:5px solid rgb(255 255 255 / 10%);
+        }
+
+        .button-css {
+        margin-top: 20px;;
+        background: #FF4742;
+        border: 1px solid #FF4742;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        /*font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;*/
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 12px 14px;
+        text-align: center;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+        width: 100%
+        }
+
+        .button-css:hover,
+        .button-24:active {
+        background-color: initial;
+        background-position: 0 0;
+        color: #FF4742;
+        }
+
+        .button-css:active {
+        opacity: .5;
+        }
+
+        h1{
+            margin-top: 50px;
+        }
+
+        .clear{
+            clear: both;
+        }
+
+        .media_wrapper{
+            margin-top: 25px;
+        }
+
+        textarea{
+            resize: none;
+            background-color: #afafaf;
+        }
+
+        .media_wrapper_title{
+            text-align: center;
+        }
+
+        .media_wrapper{
+            margin:25px;
+        }
+
+        .container_notes{
+            margin: 20px;
+            /* width: 100%; */
+            background-color: #504949;
+            border-radius: 30px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .note{
+            display: flex;
+            width:60%;
+            background-color: #646464b4;
+            border: 2px solid black; 
+            padding: 0px;
+            margin:auto;
+            margin-top: 25px;
+            border-radius: 15px;
+        }
+
+        .notes_title{
+            margin-left: 25px;
+            text-decoration: underline;
+        }
+
+        .left{
+            width: 30%;
+        }
+
+        .right{
+            width: 100%;
+            height: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .delete_button {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #18181a;
+        color: #18181a;
+        display: inline-block;
+        font-size: 15px;
+        line-height: 15px;
+        padding: 18px 18px 17px;
+        text-decoration: none;
+        cursor: pointer;
+        background: #fff;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        }
+
+        .delete_button span:first-child {
+        position: relative;
+        transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
+        z-index: 10;
+        }
+
+        .delete_button span:last-child {
+        color: white;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+        z-index: 100;
+        opacity: 0;
+        top: 50%;
+        left: 50%;
+        transform: translateY(225%) translateX(-50%);
+        height: 14px;
+        line-height: 13px;
+        }
+
+        .delete_button:after {
+        content: "";
+        position: absolute;
+        bottom: -50%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: red;
+        transform-origin: bottom center;
+        transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+        transform: skewY(0deg) scaleY(0);
+        z-index: 50;
+        }
+
+        .delete_button:hover:after {
+        transform-origin: bottom center;
+        transform: skewY(0deg) scaleY(2);
+        }
+
+        .delete_button:hover span:last-child {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 1;
+        transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
+        }
+
+        .note_empty{
+            justify-content: center;
+            display: flex;
+            padding: 0px;
+            margin: auto;
+            margin-top: 25px;
+            border-radius: 15px;
+            align-items: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="dummy">
+        <div class="topnav">
+            <a href="/index"><button type="button" id="button1" >Interactive map</button></a>
+            <a href="/news"><button type="button" id="button2" >Latest news</button></a>
+            <a href="/weather_updates"><button type="button" id="button3" >Weather updates</button></a>
+            <a href="/my_journal"><button type="button" id="button4" >Travel journal</button></a>
+
+        </div>
+        <form action="/logout" method="POST" class="submit">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+    <div class="container">
+        <form action="/my_journal_posts" method="POST">
+            <div>
+                <label for="image"><h1>Travel notes</h1></label><br>
+                <textarea class="notes" name="notes" rows="8" cols="85"></textarea>
+            </div>
+            <p>
+            <div>
+                <button type="submit" class="button-css">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container2">
+        <form action="/my_journal_media" method="POST" >
+            <div>
+                <label for="image" ><h1>Image/Video</h1></label><br>
+                <input type="file" id="image" 
+                       name="image" value="" required>
+            </div>
+            <p>
+            <div>
+                <button class="button-css" role="button">Upload</button>
+            </div>
+        </form>
+    </div>
+  
+    <div class="clear"></div>
+    <div class="media_wrapper">
+        <h1 class="media_wrapper_title">Your journal</h1>
+        <div class="media_notes">
+            <h1 class="notes_title">Notes</h1>
+            <div class="container_notes">                
+            </div>
+        </div>
+        <div class="media_images_videos">
+            <h1 class="image_video_title">Image/video media</h1>
+        </div>
+    </div>
+</body>
+<script>
+    //Obtaining the array containing the notes (text) created by the user
+    var note_content='<%- JSON.stringify(notes_user) %>';
+    //console.log(note_content);
+    //Creating seperate div for each note
+    note_content=note_content.replace(/[\n\r]/g, '\\n');
+    //console.log(note_content)
+    note_content=JSON.parse(note_content);
+    // var n=note_content.length;
+    var n=Object.keys(note_content).length;
+    if(n==0){
+        var note = document.createElement('div');
+        note.innerText="No notes to display";
+        note.setAttribute('class',"note_empty");
+        note.style.paddingBottom="25px";
+        note.style.fontSize="20px";
+        document.querySelector(".container_notes").appendChild(note);
+    }
+    else{
+        for(var i=0;i<n;i++){
+            var note = document.createElement('div');
+            var left = document.createElement('div');
+            var right = document.createElement('div');
+            var button=document.createElement('button');
+            button.style.height="100%";
+            button.style.width="100%";
+            button.style.borderTopLeftRadius="15px";
+            button.style.borderBottomLeftRadius="15px";
+            var original_span=document.createElement('span');
+            original_span.style.color="red";
+            original_span.style.fontSize = "large";
+            original_span.style.fontWeight = "bold";
+            original_span.textContent="Delete";
+            button.appendChild(original_span);
+            var child_span=document.createElement('span');
+            child_span.insertAdjacentHTML('beforeend', '<i class="w3-xxlarge fa fa-trash"></i>');
+            // child_span.textContent="Delete";
+            button.appendChild(child_span);
+            button.setAttribute('class',"delete_button");
+            note.setAttribute('class',"note");
+            left.setAttribute('class',"left");
+            button.setAttribute('id',note_content[i]["id"]);
+            // left.style.borderRadius="15px";
+            button.addEventListener("click",handler);
+            left.appendChild(button);
+            right.setAttribute('class',"right");
+            right.innerText=note_content[i]["notes_instance"];
+            right.style.paddingBottom="25px";
+            note.appendChild(left);
+            note.appendChild(right);
+            document.querySelector(".container_notes").appendChild(note);
+        }
+    }
+
+    function handler(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == XMLHttpRequest.DONE) {
+            //console.log(xhttp.responseText);
+            window.location.href = "http://localhost:3000/my_journal";
+            return false;
+        }
+    }
+        console.log(this.id);
+        xhttp.open("POST", "http://localhost:3000/my_journal_posts_delete", true);
+        //Send the proper header information along with the request
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttp.send(`id=${this.id}`);
+    }
+    
+
+    console.log(note_content);
+</script>
