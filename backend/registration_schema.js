@@ -26,6 +26,11 @@ const userSchema= new mongoose.Schema({
     travel_date:{
         type:String,
         required:false
+    },
+    notes:{
+        id:String,
+        notes_instance:String,
+        required:false
     }
 })
 
