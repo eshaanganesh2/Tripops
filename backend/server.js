@@ -18,17 +18,26 @@ const { getMaxListeners } = require('process');
 var globalusername="";
 var flag=0;// User has not yet visited home page
 
+var mongodb = require('mongodb');
+
+var MongoClient = mongodb.MongoClient;
+var url="mongodb://localhost:27017";
+
 // For capturing the data submitted via the form
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
+const bodyParser =require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.use(express.static('../public'));
 static_files_path=path.join( __dirname,'../views');
 app.set('view-engine','ejs');
 app.set("views",static_files_path);
 
-
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 app.get('/login',(req,res)=>{
     if(flag==1){
        return res.redirect('/index');
@@ -52,9 +61,7 @@ app.post('/register',async(req,res)=>{
             name:req.body.name,
             email:req.body.email,
             username:req.body.username,
-            password:req.body.password,
-            location:"",
-            travel_date:""
+            password:req.body.password
         })
         const registered=registerUser.save(function(err){
             if(err){
@@ -154,13 +161,73 @@ app.post('/weather_updates',async(req,res)=>{
         res.render("weather_updates.ejs",{mapbox_access_token:process.env.MAPBOXGL_ACCESSTOKEN,message:message});
 });
 
-app.get('/my_journal',(req,res)=>{
+app.get('/my_journal',async(req,res)=>{
     if(flag==1){
-        return res.render('my_journal.ejs');
+        const userdetails= await Register.findOne({username:globalusername});
+        console.log(userdetails.notes);
+        return res.render('my_journal.ejs',{notes_user:userdetails.notes});
     }
     globalusername="";
     res.redirect('/login');
 });
+
+// Handling POST request when user clicks 'save' for travel notes
+app.post('/my_journal_posts',urlencodedParser,async(req,res)=>{
+    var post=req.body.notes;
+    post=post.replace(/'/g, '');
+    try {
+        function makeid(length) {
+            var result='';
+            var characters='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength=characters.length;
+            for(var i=0;i<length;i++){
+              result+=characters.charAt(Math.floor(Math.random()*charactersLength));
+            }
+           return result;
+        }
+        var id=makeid(10);
+        var consolidated_notes={id:id,notes_instance:post};
+        // consolidated_notes.push(id);
+        // consolidated_notes.push(post);
+        const x=await Register.updateOne({"username":globalusername},{
+            $push: {
+                // "notes.id": "1",
+                "notes": consolidated_notes
+            }
+        });
+        console.log("hello");
+    }
+    catch(e){
+        console.log(e);
+    }
+    const userdetails= await Register.findOne({username:globalusername});
+    console.log(userdetails.notes);
+    await sleep(2000);
+    res.render('my_journal.ejs',{notes_user:userdetails.notes});
+})
+
+//Handling POST request when user clicks 'delete' button for a particular post
+app.post('/my_journal_posts_delete',urlencodedParser,async(req,res)=>{
+    const userdetails= await Register.findOne({username:globalusername});
+    MongoClient.connect(url,async function(err,client){
+    var db=client.db("UserDetails");
+    console.log("Trial");
+    var id=req.body.id;
+    console.log(id);
+    await db.collection('registers').updateOne(
+        { "username": userdetails.username }, 
+        { $pull:{notes:{id:id}}},
+        false, // Upsert
+        true, // Multi
+    );
+    });
+    await sleep(1000);
+    res.render('my_journal.ejs',{notes_user:userdetails.notes});
+})
+
+app.post('/my_journal_media',(req,res)=>{
+    res.send("media");
+})
 
 //User clicks on logout button
 app.post('/logout',(req,res)=>{
