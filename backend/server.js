@@ -78,6 +78,8 @@ const storage = new GridFsStorage({
 // For capturing the data submitted via the form
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+var methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 const bodyParser =require('body-parser');
 const { mongo } = require('mongoose');
@@ -218,7 +220,7 @@ app.get('/my_journal',async(req,res)=>{
     if(flag==1){
         const userdetails= await Register.findOne({username:globalusername});
         console.log(userdetails.notes);
-        gfs.files.find().toArray((err,files)=>{
+        gfs.files.find({username:globalusername}).toArray((err,files)=>{
             if(!files||files.length==0){
                 return res.render('my_journal.ejs',{notes_user:userdetails.notes,files:false});
             }
@@ -298,7 +300,7 @@ app.post('/my_journal_posts_delete',urlencodedParser,async(req,res)=>{
     res.redirect('/my_journal');
 })
 
-app.post('/my_journal_media',upload.single('image'),(req,res)=>{
+app.post('/my_journal_media',upload.single('image'),async(req,res)=>{
     console.log(req);
     MongoClient.connect(url,async function(err,client){
         var db=client.db("UserDetails");
@@ -313,6 +315,7 @@ app.post('/my_journal_media',upload.single('image'),(req,res)=>{
         });
         console.log(x);
         });
+        await sleep(2000);
         res.redirect('/my_journal');
 })
 
@@ -351,6 +354,20 @@ app.get('/image/:filename',async(req,res)=>{
             });
         }
     })
+});
+
+app.delete('/file/:id',async(req,res)=>{
+    const fileId = new mongoose.mongo.ObjectId(req.params.id);
+    await gfs.files.findOne({_id:fileId},(err,file)=>{
+        if(!file||file.length==0){
+            return res.status(404).json({
+                err:"No file exists"
+            });
+        }
+        gridfsBucket.delete(fileId);
+    });
+    await sleep(1000);
+    res.redirect('/my_journal');
 });
 
 //User clicks on logout button

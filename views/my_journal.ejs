@@ -312,6 +312,15 @@
         a:hover{
             color:#d1d5fd ;
         }
+
+        .delete_form{
+            height: 100%;
+        }
+
+        .image_video_title{
+            margin-left: 25px;
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -368,12 +377,15 @@
             <div class="container_media"> 
                 <% if(files){ %>
                     <%  files.forEach(function(file){ %>
+                    <% console.log(file._id) %>
                         <div class="note">
                             <div class="left">
-                                <button class="delete_button">
-                                    <span style="color: red; font-size: large; font-weight: bold;">Delete</span>
-                                    <span><i class="w3-xxlarge fa fa-trash"></i></span>
-                                </button>
+                                <form class="delete_form" method="POST" action="/file/<%=file._id%>?_method=DELETE">
+                                    <button class="delete_button">
+                                        <span style="color: red; font-size: large; font-weight: bold;">Delete</span>
+                                        <span><i class="w3-xxlarge fa fa-trash"></i></span>
+                                    </button>
+                                </form>
                             </div>
                             <% if(file.isImage){ %>
                                 <div class="right_media">
