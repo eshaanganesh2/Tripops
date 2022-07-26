@@ -6,6 +6,7 @@ var ejs = require("ejs");
 require('dotenv').config({path:path.join(__dirname,"..",".env")});
 var mongodb = require('mongodb');
 const Register = require('./registration_schema');
+var cron = require('node-cron');
 
 var MongoClient = mongodb.MongoClient;
 var url="mongodb://localhost:27017";
@@ -326,4 +327,8 @@ async function z(email_array,location_array,date_travel_array){
     console.log("Hello2");
   }
 
-  wrapper();
+  
+// Using node cron to run the script everyday at 12AM
+cron.schedule('0 0 0 * * *', () => {
+    wrapper();
+});
