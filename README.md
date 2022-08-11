@@ -46,7 +46,7 @@ Type ```localhost:3000/register``` in your browser and hit Enter to visit the re
 ## Note :warning:
 All API keys and email authentication keys are stored in a **.env file** (not pushed to GitHub). Hence, all ```process.env``` variables must be replaced with your own personal keys.
 
-## Demo
+## Demo (Demo GIFs may take 1-2 minutes to load :exclamation:)
 
 <h3> <ins> Registration Page </ins> </h3>
 <img src="https://github.com/eshaanganesh2/Tripops/blob/main/demo/register.PNG" width="512"/>
